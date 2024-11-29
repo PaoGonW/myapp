@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { PendientesService } from '../services/pendientes.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -7,35 +9,43 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-//test up
-  constructor(private alertController: AlertController) {
+
+  constructor(
+    private alertController: AlertController,
+    private servicio: PendientesService,
+    private route: Router
+  ) {
+    servicio.cargarStorage();
   }
 
-  async agregarPendiente(){
+  async agregarPendiente() {
     const alert = await this.alertController.create({
-      header: 'Nuevo Pendiente',
+      header: 'Nuevo pendiente',
       inputs: [
         {
-          type: 'text',
-          name: 'titulo',
-          placeholder: 'Nombre del Pendiente'
+        type:'text',
+        name: 'titulo',
+        placeholder:'nombre del pendiente'
       }
-    ],
+      ],
       buttons: [
         {
           text:'Cancelar',
-          role:'cancel'
+          role: 'cancel'
+
         },
-        {
+        { 
           text:'Crear',
-          handler: (data)=> {
-            if(data.titulo.length === 0){
-              console.log('fallo');
-            }
+          handler: (data) => {
+            if(data.titulo.length ===0){
               return;
+            }
+            const i = this.servicio.crearPendiente(data.titulo);
+            this.servicio.cargarStorage();
+            this.route.navigateByUrl(`/tabs/tab1/agregar/${i}`)
           }
         }
-    ],
+      ],
     });
 
     await alert.present();

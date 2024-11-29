@@ -1,6 +1,6 @@
 import { Tareas } from "./tareas";
 
-export class Pendientes{
+export class Pendientes {
 
     id: number;
     titulo: string;
@@ -10,12 +10,14 @@ export class Pendientes{
     tareas: Tareas[];
 
     constructor(titulo: string){
-        this.id = new Date().getTime()
+        this.id = new Date().getTime();
         this.titulo = titulo;
         this.fechaCreacion = new Date();
         this.terminado = false;
         this.tareas = [];
+
     }
+
 
 
 }

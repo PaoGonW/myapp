@@ -7,7 +7,7 @@ import { map, switchMap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class PokemonService {
-  private apiUrl = 'https://pokeapi.co/api/v2/pokemon?limit=10';
+  private apiUrl = 'https://pokeapi.co/api/v2/pokemon?limit=30';
 
   constructor(private http: HttpClient) {}
 
